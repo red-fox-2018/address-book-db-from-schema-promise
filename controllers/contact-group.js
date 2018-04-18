@@ -19,19 +19,24 @@ class CGroupController {
       View.succesAdd(groupNcontact)
     })
     .catch(function(err){
-      View.showErr(err)
+      if(err == "not found"){
+        View.showErrAdd()
+      }else{
+        View.showErr(err)
+      }
     })
   }
 
   static deleteContactGroup(dataCGroup){
-    Model.destroy(dataCGroup, function(err, contact, group) {
-
-      if(err = "not found"){
-        View.showErrDelete(err, contact, group)
-      }else if(err){
-        View.showErr(err)
+    Model.create(dataCGroup)
+    .then(function(groupNcontact){
+      View.succesDelete(groupNcontact)
+    })
+    .catch(function(err){
+      if(err == "not found"){
+        View.showErrDelete()
       }else{
-        View.succesDelete()
+        View.showErr(err)
       }
     })
   }

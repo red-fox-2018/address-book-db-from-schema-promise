@@ -1,3 +1,9 @@
+var Table = require('cli-table');
+var table = new Table({
+    head: ['ID', 'Group Name']
+  , colWidths: [5, 10]
+});
+
 class ViewGroup {
   static showErr(err){
     console.log(err);
@@ -5,8 +11,9 @@ class ViewGroup {
 
   static showData(data){
     data.forEach(objData =>{
-      console.log(Object.values(objData).join(" "));
+      table.push(Object.values(objData))
     })
+    console.log(table.toString());
   }
 
   static succesAdd(groupName){

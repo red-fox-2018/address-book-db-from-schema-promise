@@ -7,9 +7,9 @@ db.serialize(function(){
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         name VARCHAR(50),
                         company VARCHAR(50),
-                        phone VARCHAR(12),
+                        phone VARCHAR(12) NOT NULL,
                         email VARCHAR(255),
-                        CONSTRAINT phone_email_unique UNIQUE(phone, email)
+                        CONSTRAINT phone_unique UNIQUE(phone)
                       );`;
   let createContactGroup = `CREATE TABLE IF NOT EXISTS Contact_Groups(
                               id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,17 +22,17 @@ db.serialize(function(){
                               id INTEGER PRIMARY KEY AUTOINCREMENT,
                               group_name VARCHAR(50)
                             );`;
-  db.run(createContact);
-  db.run(createContactGroup);
-  db.run(createGroup);
+  // db.run(createContact);
+  // db.run(createContactGroup);
+  // db.run(createGroup);
 
-  // let con = fs.readFileSync('./JSONFile/contact.json', 'utf8');
-  // let parse = JSON.parse(con)
-  // let insert = db.prepare("INSERT INTO Contacts VALUES (Null, ?, ?, ?, ?)")
-  // for(let i=0; i<parse.length; i++){
-  //   insert.run(Object.values(parse[i]))
-  // }
-  // insert.finalize()
+  let con = fs.readFileSync('./JSONFile/contact.json', 'utf8');
+  let parse = JSON.parse(con)
+  let insert = db.prepare("INSERT INTO Contacts VALUES (Null, ?, ?, ?, ?)")
+  for(let i=0; i<parse.length; i++){
+    insert.run(Object.values(parse[i]))
+  }
+  insert.finalize()
 
   // let con = fs.readFileSync('./JSONFile/group.json', 'utf8');
   // let parse = JSON.parse(con)
@@ -42,13 +42,13 @@ db.serialize(function(){
   // }
   // insert.finalize()
 
-  let con = fs.readFileSync('./JSONFile/contactGroup.json', 'utf8');
-  let parse = JSON.parse(con)
-  let insert = db.prepare("INSERT INTO Contact_Groups VALUES (Null, ?, ?)")
-  for(let i=0; i<parse.length; i++){
-    insert.run(Object.values(parse[i]))
-  }
-  insert.finalize()
+  // let con = fs.readFileSync('./JSONFile/contactGroup.json', 'utf8');
+  // let parse = JSON.parse(con)
+  // let insert = db.prepare("INSERT INTO Contact_Groups VALUES (Null, ?, ?)")
+  // for(let i=0; i<parse.length; i++){
+  //   insert.run(Object.values(parse[i]))
+  // }
+  // insert.finalize()
 
 });
 db.close()

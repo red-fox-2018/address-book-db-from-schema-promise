@@ -2,8 +2,8 @@ class ViewHelp {
   static help(){
     console.log(`
       List of Contact on Group   ===>    node main.js listContactonGroup
-      Add Contact to Group       ===>    node main.js addContactGroup colContact,valContact colGroup,valGroup
-      Delete Contact From Group  ===>    node main.js deleteContactGroup colContact,valContact colGroup,valGroup
+      Add Contact to Group       ===>    node main.js addContactGroup contactName groupName
+      Delete Contact From Group  ===>    node main.js deleteContactGroup contactName groupName
 
       Add Contact                ===>    node main.js addContact name,company,phone,email
       Display List of Contact    ===>    node main.js listContact

@@ -1,3 +1,9 @@
+var Table = require('cli-table');
+var table = new Table({
+    head: ['ID', 'Name', 'Company', 'Phone', 'Email']
+  , colWidths: [5, 20, 20, 20, 20]
+});
+
 class ViewContact {
   static showErr(err){
     console.log(err);
@@ -5,8 +11,9 @@ class ViewContact {
 
   static showData(data){
     data.forEach(objData =>{
-      console.log(Object.values(objData).join(" "));
+      table.push(Object.values(objData))
     })
+    console.log(table.toString());
   }
 
   static succesAdd(contactName){
