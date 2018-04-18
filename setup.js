@@ -1,6 +1,5 @@
-
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./address-book.db');
+const db = new sqlite3.Database('./address-book-promise.db');
 
 function setup_table() {
   db.serialize(function() {

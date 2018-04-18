@@ -1,6 +1,6 @@
 
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./address-book.db');
+const db = new sqlite3.Database('./address-book-promise.db');
 
 class GroupsModel {
   static invite(contactName, groupName, callback) {
