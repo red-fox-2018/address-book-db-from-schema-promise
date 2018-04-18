@@ -34,6 +34,9 @@ switch(command) {
   case 'group:delete': 
     GroupsController.deleteOne(values);
     break;
+  case 'group:update':
+    GroupsController.updateGroup(values);
+    break;
   case 'group:invite': 
     GroupsController.inviteContact(values);
     break;

@@ -29,55 +29,61 @@ class GroupsModel {
     });
   }
   
-  static getAll(callback) {
-
-    let groupListSql = `
+  static getAll() {
+    return new Promise((resolve, reject) => {
+      let groupListSql = `
       SELECT
         Groups.name,
         GroupContacts.contactName
         FROM Groups
         LEFT JOIN GroupContacts ON Groups.name = GroupContacts.groupName;
     `;
-
-    db.all(groupListSql, (err, rows) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(rows);
-      }
+      db.all(groupListSql, (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
     });
   }
   
-  static findById(id, callback) {
-    db.get(`SELECT * FROM Groups WHERE id = ?`, id, (err, row) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(row);
-      }
+  static findById(id) {
+    return new Promise((resolve, reject) => {
+      db.get(`SELECT * FROM Groups WHERE id = ?`, id, (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
     });
   }
   
-  static deleteById(id, callback) {
-    db.run(`DELETE FROM GroupContacts WHERE groupName = (SELECT name FROM Groups WHERE id = ?)`, id);
-    db.run(`DELETE FROM Groups WHERE id = ?`, id, (err) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(1);
-      }
+  static deleteById(id) {
+    return new Promise((resolve, reject) => {
+      db.run(`DELETE FROM GroupContacts WHERE groupName = (SELECT name FROM Groups WHERE id = ?)`, id);
+      db.run(`DELETE FROM Groups WHERE id = ?`, id, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(1);
+        }
+      });
     });
   }
   
-  static updateById(id, name, callback) {
-    let sqlUpdateGroup = `UPDATE Groups SET name = ? WHERE id = ?`;
-    db.run(sqlUpdateGroup, name, id, (err) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(1);
-      }
-    });
+  static updateById(id, name) {
+    return new Promise((resolve, reject) => {
+      let sqlUpdateGroup = `UPDATE Groups SET name = ? WHERE id = ?`;
+      db.run(sqlUpdateGroup, name, id, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(1);
+        }
+      });
+    })
   }
 }
 
