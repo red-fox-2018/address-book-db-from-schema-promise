@@ -4,9 +4,14 @@ const View = require('./../views/view');
 
 class ContactsController {
   static showList() {
-    ContactsModel.getAll((contactList) => {
-      View.showList(contactList);
+    ContactsModel.getAll().then(rows => {
+      View.showList(rows);
+    }).catch(err => {
+      View.showString(`Sorry, failed getting data!`);
     });
+    // ContactsModel.getAll((contactList) => {
+    //   View.showList(contactList);
+    // });
   }
   static showById(values) {
     let id = values[0];
