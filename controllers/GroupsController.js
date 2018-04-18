@@ -8,24 +8,27 @@ class GroupsController {
       View.showList(groupList);
     });
   }
+  
   static showById(values) {
     let id = values[0];
     GroupsModel.findById(id, (result) => {
       View.showOne(result);
     })
   }
+  
   static add(values) {
     // @ name, company, phone, email
     let name = values[0];
 
-    GroupsModel.addOne(name, (result) => {
+    GroupsModel.addOne(name).then(result => {
       if (result == 1) {
-        View.showString(`Behasil menambahkan group!`);
-      } else {
-        View.showString(`Gagal menambahkan group!`);
+        View.showList(`Data berhasil dimasukan!`);
       }
+    }).catch(err => {
+      View.showList(`Data berhasil dimasukan!`);
     });
   }
+  
   static deleteOne(values) {
     let id = values[0];
     GroupsModel.deleteById(id, (result) => {
@@ -36,17 +39,17 @@ class GroupsController {
       }
     });
   }
+
   static inviteContact(values) {
     let contactName = values[0];
     let groupName = values[1];
 
-    GroupsModel.invite(contactName, groupName, (result) => {
-      if (result == 1) {
+    GroupsModel.invite(contactName, groupName)
+      .then(result => {
         View.showString(`Behasil menambahkan ke group!`);
-      } else {
+      }).catch(err => {
         View.showString(`Gagal menambahkan ke group!`);
-      }
-    });
+      })
   }
 }
 
