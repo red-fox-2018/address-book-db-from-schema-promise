@@ -19,6 +19,9 @@ switch(command) {
   case 'contact:delete': 
     ContactsController.deleteOne(values);
     break;
+  case 'contact:update':
+    ContactsController.updateContact(values);
+    break;
   case 'group:list' :    
     GroupsController.showList();
     break;
