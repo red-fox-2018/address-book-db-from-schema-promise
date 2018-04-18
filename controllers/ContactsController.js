@@ -9,15 +9,12 @@ class ContactsController {
     }).catch(err => {
       View.showString(`Sorry, failed getting data!`);
     });
-    // ContactsModel.getAll((contactList) => {
-    //   View.showList(contactList);
-    // });
   }
   static showById(values) {
     let id = values[0];
-    ContactsModel.findById(id, (result) => {
+    ContactsModel.findById(id) .then(result => {
       View.showOne(result);
-    })
+    });
   }
   static add(values) {
     // @ name, company, phone, email
